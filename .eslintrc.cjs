@@ -26,6 +26,10 @@ module.exports = {
   rules: {
     'linebreak-style': 0,
     'no-console': 'off',
+    'no-unused-vars': 'off',
+    'react/jsx-no-constructed-context-values': 'off',
+    'no-nested-ternary': 'off',
+    'react/require-default-props': 'off',
     'react/react-in-jsx-scope': 'off',
     'react/jsx-filename-extension': [0],
     'import/extensions': 'off',
