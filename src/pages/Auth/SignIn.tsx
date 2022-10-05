@@ -1,28 +1,23 @@
 import { Button, CircularProgress } from '@mui/material';
-import { useContext, useEffect, useState } from 'react';
-import studentImg from '../../assets/images/student.png';
-import logoToAuth from '../../assets/images/logo-to-auth.png';
+import { useEffect, useState } from 'react';
 import AuthWrapper from './AuthStyle';
-import Start from '../../components/Start/Start';
-import useAuth from '../../hooks/useAuth';
 import NavLink from '../../assets/styles/GlobalLink';
-import AuthInput from '../../components/AuthInput/AuthInput';
-import useSignIn from '../../hooks/api/users/useSignIn';
-import SnackbarAlert from '../../components/SnackbarAlert/SnackbarAlert';
-import UserContext from '../../contexts/UserContext';
+import hooks from '../../hooks';
+import Components from '../../components/index';
+import images from '../../assets/images';
 
 export default function SignIn() {
   const {
     start, showPassword, toggleVisibility, firstAppear,
-  } = useAuth();
+  } = hooks.useAuth();
 
   const {
     loginData, loadingLogin, createLoginError, login, setCreateLoginError,
-  } = useSignIn();
+  } = hooks.useSignIn();
 
   const [user, setUser] = useState({ email: '', password: '' });
 
-  const { setCurrentUser } = useContext(UserContext);
+  const { setCurrentUser } = hooks.useUser();
 
   useEffect(() => {
     if (loginData && localStorage.getItem('userLocal') === null) {
@@ -38,21 +33,21 @@ export default function SignIn() {
   }
 
   return start ? (
-    <Start firstAppear={firstAppear} />
+    <Components.Start firstAppear={firstAppear} />
   ) : (
     <>
-      <SnackbarAlert
+      <Components.SnackbarAlert
         error={createLoginError}
         openAlert={!!createLoginError}
         closeAlert={() => setCreateLoginError(null)}
       />
       <AuthWrapper.Container>
-        <img src={studentImg} alt="student" />
+        <img src={images.studentImg} alt="student" />
         <AuthWrapper.Form onSubmit={(e) => submitLogin(e)}>
-          <img src={logoToAuth} alt="logo-to-auth" />
+          <img src={images.logoAuth} alt="logo-to-auth" />
           <div>
             <h1>Login</h1>
-            <AuthInput
+            <Components.AuthInput
               text="email"
               label="Email"
               type="email"
@@ -60,7 +55,7 @@ export default function SignIn() {
               changeInput={(e) => setUser({ ...user, [e.target.name]: e.target.value })}
               disabled={loadingLogin}
             />
-            <AuthInput
+            <Components.AuthInput
               text="password"
               label="Senha"
               type="password"
