@@ -2,6 +2,7 @@ import { BrowserRouter } from 'react-router-dom';
 import GlobalStyle from './assets/styles/GlobalStyle';
 import { TeacherProvider } from './contexts/TeacherContext';
 import { UserProvider } from './contexts/UserContext';
+import Header from './layouts/Header/Header';
 import Router from './Router';
 
 export default function App() {
@@ -10,6 +11,7 @@ export default function App() {
       <UserProvider>
         <GlobalStyle />
         <BrowserRouter>
+          <Header />
           <Router />
         </BrowserRouter>
       </UserProvider>
