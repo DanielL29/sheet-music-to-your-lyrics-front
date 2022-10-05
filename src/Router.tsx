@@ -1,19 +1,17 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
-import { useContext } from 'react';
-import Home from './pages/Home/Home';
-import UserContext from './contexts/UserContext';
-import SignIn from './pages/Auth/SignIn';
-import SignUp from './pages/Auth/SignUp';
+import hooks from './hooks';
+import Pages from './pages';
 
 export default function Router() {
-  const { currentUser } = useContext(UserContext);
+  const { currentUser } = hooks.useUser();
   const isLogged = currentUser?.token !== undefined;
 
   return (
     <Routes>
-      <Route path="/" element={isLogged ? <Navigate to="/home" replace /> : <SignIn />} />
-      <Route path="/sign-up" element={isLogged ? <Navigate to="/home" replace /> : <SignUp />} />
-      <Route path="/home" element={<Home />} />
+      <Route path="/" element={isLogged ? <Navigate to="/home" replace /> : <Pages.SignIn />} />
+      <Route path="/sign-up" element={isLogged ? <Navigate to="/home" replace /> : <Pages.SignUp />} />
+      <Route path={isLogged ? '/home' : '*'} element={isLogged ? <Pages.Home /> : <Navigate to="/" replace />} />
+      <Route path={isLogged ? '/:category/:author/:musicName' : '*'} element={isLogged ? <Pages.Music /> : <Navigate to="/" replace />} />
     </Routes>
   );
 }

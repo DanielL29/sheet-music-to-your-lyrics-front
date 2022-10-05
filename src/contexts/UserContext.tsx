@@ -17,11 +17,13 @@ const UserContext = createContext<IUserContext>(initialValues);
 export function UserProvider({ children }: { children: ReactNode }) {
   const [currentUser, setCurrentUser] = useState(initialValues.currentUser);
 
-  useEffect(() => {
-    if (localStorage.getItem('userLocal') !== null) {
-      setCurrentUser(JSON.parse(localStorage.getItem('userLocal')!));
-    }
-  }, []);
+  const userLocal = JSON.parse(localStorage.getItem('userLocal')!);
+
+  if (currentUser?.token !== undefined) {
+    localStorage.setItem('userLocal', JSON.stringify(currentUser));
+  } else if (localStorage.getItem('userLocal') !== null) {
+    setCurrentUser(userLocal);
+  }
 
   return (
     <UserContext.Provider value={{ currentUser, setCurrentUser }}>

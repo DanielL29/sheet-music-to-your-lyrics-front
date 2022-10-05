@@ -1,28 +1,21 @@
 import { Button, CircularProgress } from '@mui/material';
-import { useContext, useState } from 'react';
-import studentImg from '../../assets/images/student.png';
-import teacherImg from '../../assets/images/teacher.png';
-import logoToAuth from '../../assets/images/logo-to-auth.png';
+import { useState } from 'react';
 import AuthWrapper from './AuthStyle';
-import useAuth from '../../hooks/useAuth';
-import CheckUser from '../../components/CheckUser/CheckUser';
 import NavLink from '../../assets/styles/GlobalLink';
-import AuthInput from '../../components/AuthInput/AuthInput';
-import useSignUp from '../../hooks/api/users/useSignUp';
-import SnackbarAlert from '../../components/SnackbarAlert/SnackbarAlert';
-import Start from '../../components/Start/Start';
-import TeacherContext from '../../contexts/TeacherContext';
+import hooks from '../../hooks';
+import Components from '../../components';
+import images from '../../assets/images';
 
 export default function SignUp() {
   const {
     start, showPassword, firstAppear, navigate, toggleVisibility,
-  } = useAuth();
+  } = hooks.useAuth();
 
   const {
     loadingCreatingUser, createUserError, createUser, setCreateUserError,
-  } = useSignUp();
+  } = hooks.useSignUp();
 
-  const { teacher } = useContext(TeacherContext);
+  const { teacher } = hooks.useTeacher();
 
   const [user, setUser] = useState({
     name: '', email: '', password: '', confirmPassword: '', teacher,
@@ -37,28 +30,28 @@ export default function SignUp() {
   }
 
   return start ? (
-    <Start firstAppear={firstAppear} />
+    <Components.Start firstAppear={firstAppear} />
   ) : (
     <>
-      <SnackbarAlert
+      <Components.SnackbarAlert
         error={createUserError}
         openAlert={!!createUserError}
         closeAlert={() => setCreateUserError(null)}
       />
       <AuthWrapper.Container>
-        <img src={!teacher ? studentImg : teacherImg} alt="student-colaborator" />
+        <img src={!teacher ? images.studentImg : images.teacherImg} alt="student-colaborator" />
         <AuthWrapper.Form onSubmit={(e) => submitUser(e)}>
-          <img src={logoToAuth} alt="logo-to-auth" />
+          <img src={images.logoAuth} alt="logo-to-auth" />
           <div>
             <h1>Cadastro</h1>
-            <AuthInput
+            <Components.AuthInput
               text="name"
               label="Nome"
               value={user.name}
               changeInput={(e) => setUser({ ...user, [e.target.name]: e.target.value })}
               disabled={loadingCreatingUser}
             />
-            <AuthInput
+            <Components.AuthInput
               text="email"
               label="Email"
               type="email"
@@ -66,7 +59,7 @@ export default function SignUp() {
               changeInput={(e) => setUser({ ...user, [e.target.name]: e.target.value })}
               disabled={loadingCreatingUser}
             />
-            <AuthInput
+            <Components.AuthInput
               text="password"
               label="Senha"
               type="password"
@@ -76,7 +69,7 @@ export default function SignUp() {
               toggleVisibility={toggleVisibility}
               disabled={loadingCreatingUser}
             />
-            <AuthInput
+            <Components.AuthInput
               text="confirmPassword"
               label="Confime a senha"
               type="password"
@@ -86,7 +79,7 @@ export default function SignUp() {
               toggleVisibility={toggleVisibility}
               disabled={loadingCreatingUser}
             />
-            <CheckUser />
+            <Components.CheckUser />
             <Button
               type="submit"
               variant="contained"

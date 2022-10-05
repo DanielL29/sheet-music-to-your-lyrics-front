@@ -3,11 +3,10 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
-import { useContext } from 'react';
-import TeacherContext from '../../contexts/TeacherContext';
+import hooks from '../../hooks';
 
 export default function CheckUser() {
-  const { teacher, setTeacher } = useContext(TeacherContext);
+  const { teacher, setTeacher } = hooks.useTeacher();
 
   return (
     <FormControl margin="normal">
