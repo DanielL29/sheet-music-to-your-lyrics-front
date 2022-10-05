@@ -10,7 +10,6 @@ const NavLink = styled(Link)`
   transition: all 300ms ease-in-out;
 
   :hover {
-    text-decoration: underline;
     color: #15C7CF;
   }
 `;
