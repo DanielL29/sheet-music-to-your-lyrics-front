@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 
-export default function useAsync(handler: any, immediate: boolean = true) {
-  const [data, setData] = useState(null);
+export default function useAsync<T>(handler: any, immediate: boolean = true) {
+  const [data, setData] = useState<T | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -22,7 +22,7 @@ export default function useAsync(handler: any, immediate: boolean = true) {
     if (immediate) {
       act();
     }
-  }, []);
+  }, [data]);
 
   return {
     data,
