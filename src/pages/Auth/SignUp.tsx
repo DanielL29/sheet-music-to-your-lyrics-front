@@ -48,7 +48,7 @@ export default function SignUp() {
               text="name"
               label="Nome"
               value={user.name}
-              changeInput={(e) => setUser({ ...user, [e.target.name]: e.target.value })}
+              changeInput={(e: any) => setUser({ ...user, [e.target.name]: e.target.value })}
               disabled={loadingCreatingUser}
             />
             <Components.AuthInput
@@ -56,7 +56,7 @@ export default function SignUp() {
               label="Email"
               type="email"
               value={user.email}
-              changeInput={(e) => setUser({ ...user, [e.target.name]: e.target.value })}
+              changeInput={(e: any) => setUser({ ...user, [e.target.name]: e.target.value })}
               disabled={loadingCreatingUser}
             />
             <Components.AuthInput
@@ -65,7 +65,7 @@ export default function SignUp() {
               type="password"
               value={user.password}
               showPassword={showPassword}
-              changeInput={(e) => setUser({ ...user, [e.target.name]: e.target.value })}
+              changeInput={(e: any) => setUser({ ...user, [e.target.name]: e.target.value })}
               toggleVisibility={toggleVisibility}
               disabled={loadingCreatingUser}
             />
@@ -75,7 +75,7 @@ export default function SignUp() {
               type="password"
               value={user.confirmPassword}
               showPassword={showPassword}
-              changeInput={(e) => setUser({ ...user, [e.target.name]: e.target.value })}
+              changeInput={(e: any) => setUser({ ...user, [e.target.name]: e.target.value })}
               toggleVisibility={toggleVisibility}
               disabled={loadingCreatingUser}
             />

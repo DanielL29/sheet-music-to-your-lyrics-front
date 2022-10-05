@@ -33,5 +33,12 @@ module.exports = {
     'react/react-in-jsx-scope': 'off',
     'react/jsx-filename-extension': [0],
     'import/extensions': 'off',
+    'react/no-array-index-key': 'off',
+    'no-param-reassign': 'off',
+    'no-plusplus': 'off',
+    'jsx-a11y/no-noninteractive-element-interactions': 'off',
+    'jsx-a11y/click-events-have-key-events': 'off',
+    'jsx-a11y/no-static-element-interactions': 'off',
+    'jsx-a11y/media-has-caption': 'off',
   },
 };
