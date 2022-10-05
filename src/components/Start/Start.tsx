@@ -1,17 +1,16 @@
 import { Button, Stack } from '@mui/material';
 import LibraryMusicIcon from '@mui/icons-material/LibraryMusic';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import { useContext } from 'react';
 import startImg from '../../assets/images/start.png';
 import StartWrapper from './StartStyle';
-import TeacherContext from '../../contexts/TeacherContext';
+import hooks from '../../hooks';
 
 interface IStart {
   firstAppear: () => void;
 }
 
 export default function Start({ firstAppear }: IStart) {
-  const { setTeacher } = useContext(TeacherContext);
+  const { setTeacher } = hooks.useTeacher();
 
   return (
     <StartWrapper>
