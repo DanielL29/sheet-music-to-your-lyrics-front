@@ -9,12 +9,21 @@ export default function useRoute() {
   const matchHome = useMatch('/home');
   const matchMusic = useMatch('/:category/:author/:musicName');
   const matchAllMusics = useMatch('/musics');
-  const matchAuthors = useMatch('/authors');
+  const matchAllAuthors = useMatch('/authors');
+  const matchCategory = useMatch('/:category');
+  const matchAuthor = useMatch('/:category/:author');
 
   useEffect(() => {
     if (matchSignIn || matchSignUp) {
       setShowHeader('');
-    } else if (matchHome || matchMusic || matchAllMusics || matchAuthors) {
+    } else if (
+      matchHome
+      || matchMusic
+      || matchAllMusics
+      || matchAllAuthors
+      || matchCategory
+      || matchAuthor
+    ) {
       setShowHeader('show');
     } else {
       setShowHeader('notfound');
