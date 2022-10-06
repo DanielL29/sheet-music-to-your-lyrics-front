@@ -7,6 +7,17 @@ export interface IMusic {
   musicVideoUrl: string;
   musicHelpVideoUrl: string;
   sheetMusicFile: string;
-  authorImg: string;
   translatedLyric: string[];
+  authors: {
+    name: string
+    imageUrl: string
+  }
+}
+
+export interface IMusicCategory {
+  id: number
+  name: string
+  authors: {
+    name: string
+  }
 }
