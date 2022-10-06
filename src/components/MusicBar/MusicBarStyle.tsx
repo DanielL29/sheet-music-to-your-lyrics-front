@@ -8,8 +8,10 @@ const Container = styled.div`
 
   > img {
     width: 80px;
+    height: 80px;
     border-radius: 100%;
     margin-bottom: 15px;
+    object-fit: cover;
   }
 
   > div img {
