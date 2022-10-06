@@ -22,7 +22,7 @@ export default function Header() {
     <HeaderWrapper.Container>
       <div>
         <div className="logo-search">
-          <HeaderWrapper.LogoHeader>
+          <HeaderWrapper.LogoHeader onClick={() => navigate('/home')}>
             <img src={images.logoHeader} alt="logo-to-header" />
           </HeaderWrapper.LogoHeader>
           <TextField id="outlined-basic" label="Pesquisar música..." variant="outlined" size="small" fullWidth />
