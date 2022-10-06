@@ -10,6 +10,7 @@ import useMusicSnippets from './api/musicSnippets/useMusicSnippets';
 import useMusicSnippetCreate from './api/musicSnippets/useMusicSnippetCreate';
 import useMusicPage from './useMusicPage';
 import useSnippet from './useSnippet';
+import useCategories from './api/categories/useCategories';
 
 const hooks = {
   useAsync,
@@ -24,6 +25,7 @@ const hooks = {
   useMusicSnippetCreate,
   useMusicPage,
   useSnippet,
+  useCategories,
 };
 
 export default hooks;
