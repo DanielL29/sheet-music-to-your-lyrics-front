@@ -25,7 +25,8 @@ export default function Music() {
   return (
     <MusicWrapper.Container>
       <MusicBar
-        authorImg={musicData?.authorImg}
+        authorImg={musicData?.authors.imageUrl}
+        translatedLyric={musicData?.translatedLyric}
         editMusic={() => resetToUpdateLyric()}
         compareTranslate={() => (
           musicData?.translatedLyric ? setShowTranslate(!showTranslate) : setShowTranslate(false)
@@ -33,7 +34,7 @@ export default function Music() {
       />
       <div className="lyric-area">
         <h1>{musicData?.name}</h1>
-        <h2>{musicData?.author}</h2>
+        <h2>{musicData?.authors.name}</h2>
         <div className="buttons">
           <MusicButton
             name="vídeo"
