@@ -27,9 +27,20 @@ async function update(musicName: string, musicUpdate: any, token: string) {
   });
 }
 
+async function getByCategory(categoryName: string, token: string) {
+  const response = await api.get(`/musics/category/${categoryName}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  return response.data;
+}
+
 const musicService = {
   getByName,
   update,
+  getByCategory,
 };
 
 export default musicService;
