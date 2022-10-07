@@ -5,11 +5,14 @@ import MusicBarWrapper from './MusicBarStyle';
 
 interface IMusicBar {
   authorImg: string | undefined
+  translatedLyric: string[] | undefined
   editMusic: () => void
   compareTranslate: () => void
 }
 
-export default function MusicBar({ authorImg, editMusic, compareTranslate }: IMusicBar) {
+export default function MusicBar({
+  authorImg, translatedLyric, editMusic, compareTranslate,
+}: IMusicBar) {
   return (
     <MusicBarWrapper.Container>
       <img src={authorImg} alt="author" />
@@ -19,9 +22,11 @@ export default function MusicBar({ authorImg, editMusic, compareTranslate }: IMu
             <EditIcon cursor="pointer" />
           </div>
         </Tooltip>
-        <Tooltip title="Comparar Tradução" arrow>
-          <img src={images.englishImg} alt="translate" onClick={compareTranslate} />
-        </Tooltip>
+        {translatedLyric ? (
+          <Tooltip title="Comparar Tradução" arrow>
+            <img src={images.brazilImg} alt="translate" onClick={compareTranslate} />
+          </Tooltip>
+        ) : ''}
       </div>
     </MusicBarWrapper.Container>
   );
