@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import hooks from '../../hooks';
 import MusicWrapper from './MusicStyle';
 import MusicButton from '../../components/MusicButton/MusicButton';
@@ -9,9 +9,10 @@ import UpdateField from '../../components/UpdateField/UpdateField';
 import SnippetAid from '../../components/SnippetAid/SnippetAid';
 
 export default function Music() {
-  const { musicName } = useParams();
+  const { musicName, category } = useParams();
   const [showSheetMusic, setShowSheetMusic] = useState<string | undefined>('');
   const [showTranslate, setShowTranslate] = useState<boolean>(false);
+  const navigate = useNavigate();
 
   const { musicData } = hooks.useMusic(musicName!);
   const { musicSnippetData } = hooks.useMusicSnippets(musicName!);
@@ -34,7 +35,9 @@ export default function Music() {
       />
       <div className="lyric-area">
         <h1>{musicData?.name}</h1>
-        <h2>{musicData?.authors.name}</h2>
+        <h2 onClick={() => navigate(`/${category}/${musicData?.authors.name}`)}>
+          {musicData?.authors.name}
+        </h2>
         <div className="buttons">
           <MusicButton
             name="vídeo"
