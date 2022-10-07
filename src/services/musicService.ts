@@ -37,10 +37,21 @@ async function getByCategory(categoryName: string, token: string) {
   return response.data;
 }
 
+async function getByAuthor(authorName: string, token: string) {
+  const response = await api.get(`/musics/author/${authorName}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  return response.data;
+}
+
 const musicService = {
   getByName,
   update,
   getByCategory,
+  getByAuthor,
 };
 
 export default musicService;
