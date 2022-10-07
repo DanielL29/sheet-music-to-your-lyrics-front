@@ -24,7 +24,7 @@ export default function MusicBar({
         </Tooltip>
         {translatedLyric ? (
           <Tooltip title="Comparar Tradução" arrow>
-            <img src={images.englishImg} alt="translate" onClick={compareTranslate} />
+            <img src={images.brazilImg} alt="translate" onClick={compareTranslate} />
           </Tooltip>
         ) : ''}
       </div>
