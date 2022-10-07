@@ -1,11 +1,15 @@
 import styled from 'styled-components';
 
 const Container = styled.div`
-  display: flex;
-  box-sizing: border-box;
-
-  margin: 100px auto;
+  margin: 0 auto;
+  margin-bottom: 100px;
   width: 1200px;
+
+  .music {
+    display: flex;
+    box-sizing: border-box;
+    margin-top: 20px;
+  }
 
   .lyric-area, .snippets-area {
     display: flex;

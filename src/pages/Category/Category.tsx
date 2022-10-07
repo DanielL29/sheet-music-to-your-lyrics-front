@@ -1,4 +1,5 @@
 import { useNavigate, useParams } from 'react-router-dom';
+import Components from '../../components';
 import hooks from '../../hooks';
 import CategoryWrapper from './CategoryStyle';
 
@@ -10,8 +11,9 @@ export default function Category() {
 
   return (
     <CategoryWrapper.Container>
+      <Components.BreadCrumbs currentPage={category} />
       <div className="authors">
-        <h1>Artistas</h1>
+        <Components.PageTitle title="Artistas" />
         <div>
           {authorsByCategory?.map((author) => (
             <div className="card" onClick={() => navigate(`/${category}/${author.name}`)}>
@@ -22,7 +24,7 @@ export default function Category() {
         </div>
       </div>
       <div className="musics">
-        <h1>{`Categoria/Gênero ${category}`}</h1>
+        <Components.PageTitle title={`Categoria/Gênero ${category}`} />
         {musicByCategory?.map((music) => (
           <div key={music.id}>
             <h2 onClick={() => navigate(`/${category}/${music.authors.name}/${music.name}`)}>{music.name}</h2>

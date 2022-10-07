@@ -3,7 +3,7 @@ import styled from 'styled-components';
 const Container = styled.div`
   width: 1200px;
   margin: 0 auto;
-  margin-top: 100px;
+  margin-bottom: 100px;
 
   h1 {
     font-weight: 600;
@@ -16,7 +16,7 @@ const Container = styled.div`
   .author {
     display: flex;
     align-items: center;
-    margin-bottom: 20px;
+    margin: 20px 0;
   }
 
   img {

@@ -3,15 +3,7 @@ import styled from 'styled-components';
 const Container = styled.div`
   width: 1200px;
   margin: 0 auto;
-  margin-top: 100px;
-
-  h1 {
-    font-weight: 600;
-    color: #15c7cf;
-    font-size: 21px;
-    margin-bottom: 15px;
-    text-decoration: underline;
-  }
+  margin-bottom: 100px;
 
   h2 {
     font-size: 18px;
