@@ -13,6 +13,7 @@ import useSnippet from './useSnippet';
 import useCategories from './api/categories/useCategories';
 import useMusicCategory from './api/musics/useMusicCategory';
 import useAuthorCategory from './api/authors/useAuthorCategory';
+import useMusicAuthor from './api/musics/useMusicAuthor';
 
 const hooks = {
   useAsync,
@@ -30,6 +31,7 @@ const hooks = {
   useCategories,
   useMusicCategory,
   useAuthorCategory,
+  useMusicAuthor,
 };
 
 export default hooks;
