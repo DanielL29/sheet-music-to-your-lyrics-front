@@ -91,7 +91,7 @@ export default function SignUp() {
             >
               {loadingCreatingUser ? <CircularProgress /> : 'Cadastrar-se'}
             </Button>
-            <NavLink to="/">Já tem uma conta? Clique aqui para se logar.</NavLink>
+            <NavLink to="/" underline>Já tem uma conta? Clique aqui para se logar.</NavLink>
           </div>
         </AuthWrapper.Form>
       </AuthWrapper.Container>

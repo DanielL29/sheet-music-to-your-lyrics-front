@@ -1,5 +1,5 @@
 import EditIcon from '@mui/icons-material/Edit';
-import { Button, IconButton, Tooltip } from '@mui/material';
+import { Tooltip } from '@mui/material';
 import images from '../../assets/images';
 import MusicBarWrapper from './MusicBarStyle';
 

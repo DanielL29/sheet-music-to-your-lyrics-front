@@ -14,6 +14,7 @@ import useCategories from './api/categories/useCategories';
 import useMusicCategory from './api/musics/useMusicCategory';
 import useAuthorCategory from './api/authors/useAuthorCategory';
 import useMusicAuthor from './api/musics/useMusicAuthor';
+import useMusics from './api/musics/useMusics';
 
 const hooks = {
   useAsync,
@@ -32,6 +33,7 @@ const hooks = {
   useMusicCategory,
   useAuthorCategory,
   useMusicAuthor,
+  useMusics,
 };
 
 export default hooks;

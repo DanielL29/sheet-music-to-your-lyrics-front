@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import NavLink from '../../assets/styles/GlobalLink';
+import Components from '../../components';
 import hooks from '../../hooks';
 import HomeWrapper from './HomeStyles';
 
@@ -10,7 +11,8 @@ export default function Home() {
 
   return (
     <HomeWrapper.Container>
-      <h1>Categorias/Gêneros musicais</h1>
+      <Components.BreadCrumbs />
+      <Components.PageTitle title="Categorias/Gêneros musicais" />
       <div>
         {categories?.map((category) => (
           <div className="categories">

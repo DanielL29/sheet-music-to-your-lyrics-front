@@ -6,4 +6,8 @@ export interface IUserCreate {
   teacher: boolean
 }
 
+export interface IUserLocal {
+  token: string
+}
+
 export type UserLogin = Omit<IUserCreate, 'name' | 'confirmPassword' | 'teacher'>

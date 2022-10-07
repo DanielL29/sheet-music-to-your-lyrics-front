@@ -39,14 +39,6 @@ const Container = styled.div`
     transform: scale(1.1);
   }
 
-  h1 {
-    font-weight: 600;
-    color: #15c7cf;
-    font-size: 21px;
-    margin-top: 100px;
-    text-decoration: underline;
-  }
-
   h2 {
     font-weight: 400;
     font-size: 18px;

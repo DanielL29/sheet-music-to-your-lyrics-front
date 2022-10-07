@@ -47,11 +47,22 @@ async function getByAuthor(authorName: string, token: string) {
   return response.data;
 }
 
+async function getAll(token: string) {
+  const response = await api.get('/musics', {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  return response.data;
+}
+
 const musicService = {
   getByName,
   update,
   getByCategory,
   getByAuthor,
+  getAll,
 };
 
 export default musicService;

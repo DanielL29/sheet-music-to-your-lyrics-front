@@ -76,7 +76,7 @@ export default function SignIn() {
             >
               {loadingLogin ? <CircularProgress /> : 'Entrar'}
             </Button>
-            <NavLink to="/sign-up">Ainda não tem uma conta? Clique para se cadastrar!</NavLink>
+            <NavLink to="/sign-up" underline>Ainda não tem uma conta? Clique para se cadastrar!</NavLink>
           </div>
         </AuthWrapper.Form>
       </AuthWrapper.Container>
