@@ -21,3 +21,13 @@ export interface IMusicCategory {
     name: string
   }
 }
+
+export interface IMusicAuthor {
+  author: {
+    name: string
+    imageUrl: string
+  }
+  musics: {
+    name: string
+  }[]
+}
