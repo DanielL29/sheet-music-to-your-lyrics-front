@@ -75,7 +75,7 @@ export default function MusicButton({
               src={state}
               alt="sheet-music"
               style={{
-                width: '700px', height: '100%', margin: '0 auto', padding: '20px 0',
+                width: '700px', height: '100%', margin: '0 auto', padding: '20px 0', objectFit: 'contain',
               }}
             />
           </Box>
