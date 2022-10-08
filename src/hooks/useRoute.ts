@@ -13,9 +13,10 @@ export default function useRoute() {
   const matchCategory = useMatch('/:category');
   const matchAuthor = useMatch('/:category/:author');
   const matchAddMusic = useMatch('/add-music');
+  const matchContributor = useMatch('/become/contributor');
 
   useEffect(() => {
-    if (matchSignIn || matchSignUp) {
+    if (matchSignIn || matchSignUp || matchContributor) {
       setShowHeader('');
     } else if (
       matchHome
