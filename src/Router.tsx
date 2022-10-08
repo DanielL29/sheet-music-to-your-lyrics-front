@@ -16,7 +16,8 @@ export default function Router() {
       <Route path={isLogged ? '/:category/:author/:musicName' : '*'} element={isLogged ? <Pages.Music /> : <Navigate to="/" replace />} />
       <Route path={isLogged ? '/musics' : '*'} element={isLogged ? <Pages.Musics /> : <Navigate to="/" replace />} />
       <Route path={isLogged ? '/authors' : '*'} element={isLogged ? <Pages.Authors /> : <Navigate to="/" replace />} />
-      <Route path={isLogged ? '/add-music' : '*'} element={isLogged ? <Pages.AddMusic /> : <Navigate to="/" replace />} />
+      <Route path={isLogged && currentUser.teacher ? '/add-music' : '*'} element={isLogged && currentUser.teacher ? <Pages.AddMusic /> : <Navigate to="/home" replace />} />
+      <Route path="/become/contributor" element={<Pages.MakeContributor />} />
     </Routes>
   );
 }
