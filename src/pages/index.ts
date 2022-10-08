@@ -6,6 +6,7 @@ import Category from './Category/Category';
 import Author from './Author/Author';
 import Musics from './Musics/Musics';
 import Authors from './Authors/Authors';
+import AddMusic from './AddMusic/AddMusic';
 
 const Pages = {
   Home,
@@ -16,6 +17,7 @@ const Pages = {
   Author,
   Musics,
   Authors,
+  AddMusic,
 };
 
 export default Pages;
