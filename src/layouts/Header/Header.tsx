@@ -25,9 +25,14 @@ export default function Header() {
           <HeaderWrapper.LogoHeader onClick={() => navigate('/home')}>
             <img src={images.logoHeader} alt="logo-to-header" />
           </HeaderWrapper.LogoHeader>
-          <TextField id="outlined-basic" label="Pesquisar música..." variant="outlined" size="small" fullWidth />
+          <TextField id="outlined-basic" label="Pesquisar música..." type="search" variant="outlined" size="small" fullWidth />
         </div>
         <div className="nav">
+          <p>
+            <NavLink to="/add-music" className="link">
+              Adicionar Música
+            </NavLink>
+          </p>
           <p>
             <NavLink to="/musics" className="link">
               Todas as Músicas
