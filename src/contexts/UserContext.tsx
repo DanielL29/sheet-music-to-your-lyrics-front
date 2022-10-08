@@ -3,8 +3,8 @@ import {
 } from 'react';
 
 interface IUserContext {
-  currentUser: { token: string } | null
-  setCurrentUser: Dispatch<SetStateAction<{ token: string } | null>>
+  currentUser: { token: string, teacher: boolean } | null
+  setCurrentUser: Dispatch<SetStateAction<{ token: string, teacher: boolean } | null>>
 }
 
 const initialValues: IUserContext = {
