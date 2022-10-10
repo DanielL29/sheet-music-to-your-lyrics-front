@@ -7,6 +7,7 @@ import Author from './Author/Author';
 import Musics from './Musics/Musics';
 import Authors from './Authors/Authors';
 import AddMusic from './AddMusic/AddMusic';
+import MakeContributor from './MakeContributor/MakeContributor';
 
 const Pages = {
   Home,
@@ -18,6 +19,7 @@ const Pages = {
   Musics,
   Authors,
   AddMusic,
+  MakeContributor,
 };
 
 export default Pages;

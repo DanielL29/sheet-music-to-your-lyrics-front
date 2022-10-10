@@ -18,6 +18,7 @@ export default function Music() {
   const {
     addMusicSnippet, snippet, setSnippet, selectMusicSnippet, setAddMusicSnippet,
   } = hooks.useSnippet(musicData);
+  const { currentUser } = hooks.useUser();
 
   return (
     <MusicWrapper.Container>
@@ -99,13 +100,15 @@ export default function Music() {
               </MusicWrapper.Snippet>
             ) : ''}
             {addMusicSnippet !== '' ? (
-              <MusicWrapper.Snippet>
-                <Components.SnippetAid
-                  musicData={musicData}
-                  addMusicSnippet={addMusicSnippet!}
-                  setAddMusicSnippet={setAddMusicSnippet}
-                />
-              </MusicWrapper.Snippet>
+              currentUser?.teacher ? (
+                <MusicWrapper.Snippet>
+                  <Components.SnippetAid
+                    musicData={musicData}
+                    addMusicSnippet={addMusicSnippet!}
+                    setAddMusicSnippet={setAddMusicSnippet}
+                  />
+                </MusicWrapper.Snippet>
+              ) : ''
             ) : snippet ? (
               <MusicWrapper.Snippet>
                 <h1>

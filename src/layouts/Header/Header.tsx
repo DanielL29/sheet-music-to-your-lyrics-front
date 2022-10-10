@@ -1,15 +1,19 @@
 import { TextField } from '@mui/material';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 import HeaderWrapper from './HeaderStyle';
 import NavLink from '../../assets/styles/GlobalLink';
-import useRoute from '../../hooks/useRoute';
 import images from '../../assets/images';
-import useUser from '../../hooks/useUser';
+import Components from '../../components';
+import hooks from '../../hooks';
 
 export default function Header() {
-  const { showHeader } = useRoute();
-  const { setCurrentUser } = useUser();
+  const { showHeader } = hooks.useRoute();
+  const { currentUser, setCurrentUser } = hooks.useUser();
+  const { sendEmail } = hooks.useSendEmail();
+
+  const [becomeContributor, setBecomeContributor] = useState<string | undefined>('');
   const navigate = useNavigate();
 
   function logout() {
@@ -20,6 +24,12 @@ export default function Header() {
 
   return showHeader === 'show' ? (
     <HeaderWrapper.Container>
+      <Components.SnackbarAlert
+        error={becomeContributor}
+        openAlert={becomeContributor !== ''}
+        closeAlert={() => setBecomeContributor('')}
+        success
+      />
       <div>
         <div className="logo-search">
           <HeaderWrapper.LogoHeader onClick={() => navigate('/home')}>
@@ -28,11 +38,13 @@ export default function Header() {
           <TextField id="outlined-basic" label="Pesquisar música..." type="search" variant="outlined" size="small" fullWidth />
         </div>
         <div className="nav">
-          <p>
-            <NavLink to="/add-music" className="link">
-              Adicionar Música
-            </NavLink>
-          </p>
+          {currentUser?.teacher ? (
+            <p>
+              <NavLink to="/add-music" className="link">
+                Adicionar Música
+              </NavLink>
+            </p>
+          ) : ''}
           <p>
             <NavLink to="/musics" className="link">
               Todas as Músicas
@@ -43,6 +55,20 @@ export default function Header() {
               Artistas
             </NavLink>
           </p>
+          {!currentUser?.teacher ? (
+            <p>
+              <Components.MusicButton
+                name="Tornar-se contribuidor"
+                state={becomeContributor}
+                setButton={setBecomeContributor}
+                updateField={() => {
+                  setBecomeContributor('Email para se tornar contribuidor enviado! cheque seu email e confirme.');
+                  sendEmail(currentUser!.token);
+                }}
+                header
+              />
+            </p>
+          ) : ''}
           <p>
             <NavLink to="/home" className="link">
               <LogoutIcon onClick={() => logout()} />

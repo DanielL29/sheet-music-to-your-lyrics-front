@@ -17,6 +17,9 @@ import useMusicAuthor from './api/musics/useMusicAuthor';
 import useMusics from './api/musics/useMusics';
 import useAuthors from './api/authors/useAuthors';
 import useCreateMusic from './api/musics/useCreateMusic';
+import useContributor from './api/users/useContributor';
+import useRoute from './useRoute';
+import useSendEmail from './api/users/useSendEmail';
 
 const hooks = {
   useAsync,
@@ -38,6 +41,9 @@ const hooks = {
   useMusics,
   useAuthors,
   useCreateMusic,
+  useContributor,
+  useRoute,
+  useSendEmail,
 };
 
 export default hooks;

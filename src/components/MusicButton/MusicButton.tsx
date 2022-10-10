@@ -3,6 +3,7 @@ import {
   Button, Menu, MenuItem, Modal,
 } from '@mui/material';
 import { MouseEvent, useState } from 'react';
+import hooks from '../../hooks';
 
 interface IMusicButton {
   name: string
@@ -10,11 +11,12 @@ interface IMusicButton {
   state: string | undefined
   imgUrl?: string | undefined
   showImg?: boolean
+  header?: boolean
   updateField: () => void
 }
 
 export default function MusicButton({
-  name, setButton, state, showImg, imgUrl, updateField,
+  name, setButton, state, showImg, imgUrl, header, updateField,
 }: IMusicButton) {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -24,6 +26,8 @@ export default function MusicButton({
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  const { currentUser } = hooks.useUser();
 
   return (
     <>
@@ -35,11 +39,11 @@ export default function MusicButton({
         onClick={handleClick}
         style={{
           width: '100px',
-          marginLeft: '-5px',
-          marginBottom: '20px',
+          marginLeft: header ? '10px' : '-5px',
+          marginBottom: header ? '0px' : '20px',
           marginRight: '15px',
-          color: '#15c7cf',
-          borderBottom: '1px solid #15c7cf',
+          color: header ? '#666' : '#15c7cf',
+          borderBottom: header ? 'none' : '1px solid #15c7cf',
           borderBottomLeftRadius: '0px',
           borderBottomRightRadius: '0px',
         }}
@@ -55,32 +59,38 @@ export default function MusicButton({
           'aria-labelledby': 'basic-button',
         }}
       >
-        <MenuItem onClick={() => { updateField(); handleClose(); }}>{`Mudar ${name}`}</MenuItem>
+        {currentUser?.teacher ? (
+          <MenuItem onClick={() => { updateField(); handleClose(); }}>{`Mudar ${name}`}</MenuItem>
+        ) : header ? (
+          <MenuItem onClick={() => { updateField(); handleClose(); }}>Sim</MenuItem>
+        ) : ''}
         <MenuItem onClick={() => { setButton(state); handleClose(); }}>
-          {`Exibir ${name}`}
+          {header ? 'Cancelar' : `Exibir ${name}`}
         </MenuItem>
       </Menu>
-      {showImg ? (
-        <Modal
-          open={imgUrl !== ''}
-          onClose={() => setButton('')}
-        >
-          <Box
-            style={{
-              display: 'flex', alignItems: 'center', height: '100vh',
-            }}
-            onClick={() => setButton('')}
+      {
+        showImg ? (
+          <Modal
+            open={imgUrl !== ''}
+            onClose={() => setButton('')}
           >
-            <img
-              src={state}
-              alt="sheet-music"
+            <Box
               style={{
-                width: '700px', height: '100%', margin: '0 auto', padding: '20px 0', objectFit: 'contain',
+                display: 'flex', alignItems: 'center', height: '100vh',
               }}
-            />
-          </Box>
-        </Modal>
-      ) : ''}
+              onClick={() => setButton('')}
+            >
+              <img
+                src={state}
+                alt="sheet-music"
+                style={{
+                  width: '700px', height: '100%', margin: '0 auto', padding: '20px 0', objectFit: 'contain',
+                }}
+              />
+            </Box>
+          </Modal>
+        ) : ''
+      }
     </>
   );
 }
