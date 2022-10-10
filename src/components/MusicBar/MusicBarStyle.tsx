@@ -14,14 +14,14 @@ const Container = styled.div`
     object-fit: cover;
   }
 
-  > div img {
+  .translate img {
     width: 40px;
     transition: all 300ms ease-in-out;
     margin-top: 10px;
     cursor: pointer;
   }
 
-  > div {
+  .translate {
     display: flex;
     flex-direction: column;
     position: fixed;
@@ -42,8 +42,15 @@ const Container = styled.div`
     transition: all 300ms ease-in-out;
   }
 
-  .edit:hover, > div img:hover {
+  .edit:hover, .translate img:hover {
     transform: scale(1.1);
+  }
+
+  .contributors {
+    display: flex;
+    align-items: center;
+    position: fixed;
+    margin-top: 200px;
   }
 `;
 
