@@ -12,6 +12,7 @@ export default function useRoute() {
   const matchAllAuthors = useMatch('/authors');
   const matchCategory = useMatch('/:category');
   const matchAuthor = useMatch('/:category/:author');
+  const matchAddMusic = useMatch('/add-music');
 
   useEffect(() => {
     if (matchSignIn || matchSignUp) {
@@ -23,6 +24,7 @@ export default function useRoute() {
       || matchAllAuthors
       || matchCategory
       || matchAuthor
+      || matchAddMusic
     ) {
       setShowHeader('show');
     } else {

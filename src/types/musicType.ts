@@ -41,3 +41,7 @@ export interface IMusics {
     name: string
   }
 }
+
+export interface MusicInsertData {
+  [key: string]: any
+}

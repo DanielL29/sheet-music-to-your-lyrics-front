@@ -1,3 +1,4 @@
+import { MusicInsertData } from '../types/musicType';
 import api from './api';
 
 async function getByName(musicName: string, token: string) {
@@ -57,12 +58,36 @@ async function getAll(token: string) {
   return response.data;
 }
 
+async function insert(music: MusicInsertData, token: string) {
+  const formData = new FormData();
+
+  for (let i = 0; i < Object.keys(music).length; i++) {
+    const element = Object.keys(music)[i];
+    if (music[element] !== '') {
+      formData.append(element, music[element]);
+    }
+
+    if (element === 'sheetMusicFile' && music[element] !== '') {
+      formData.append(element, music[element].name);
+    }
+  }
+
+  const response = await api.post('/musics/create', formData, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  return response.data;
+}
+
 const musicService = {
   getByName,
   update,
   getByCategory,
   getByAuthor,
   getAll,
+  insert,
 };
 
 export default musicService;

@@ -57,6 +57,7 @@ const Container = styled.div`
     border-radius: 5px;
     margin-right: 10px;
     user-select: none;
+    object-fit: cover;
   }
 
   .musics > div {
