@@ -33,6 +33,7 @@ export interface IMusicAuthor {
 }
 
 export interface IMusics {
+  id: number
   name: string
   authors: {
     name: string
