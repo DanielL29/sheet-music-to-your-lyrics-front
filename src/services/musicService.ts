@@ -81,6 +81,19 @@ async function insert(music: MusicInsertData, token: string) {
   return response.data;
 }
 
+async function getSearch(text: string, token: string) {
+  const response = await api.get('/musics/search', {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    params: {
+      text,
+    },
+  });
+
+  return response.data;
+}
+
 const musicService = {
   getByName,
   update,
@@ -88,6 +101,7 @@ const musicService = {
   getByAuthor,
   getAll,
   insert,
+  getSearch,
 };
 
 export default musicService;
