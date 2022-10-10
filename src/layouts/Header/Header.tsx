@@ -14,6 +14,7 @@ export default function Header() {
   const { sendEmail } = hooks.useSendEmail();
 
   const [becomeContributor, setBecomeContributor] = useState<string | undefined>('');
+  const [text, setText] = useState('');
   const navigate = useNavigate();
 
   function logout() {
@@ -35,7 +36,17 @@ export default function Header() {
           <HeaderWrapper.LogoHeader onClick={() => navigate('/home')}>
             <img src={images.logoHeader} alt="logo-to-header" />
           </HeaderWrapper.LogoHeader>
-          <TextField id="outlined-basic" label="Pesquisar música..." type="search" variant="outlined" size="small" fullWidth />
+          <TextField
+            id="search"
+            label="Pesquisar música..."
+            value={text}
+            type="search"
+            variant="outlined"
+            size="small"
+            fullWidth
+            onChange={(e) => setText(e.target.value)}
+            onKeyDown={(e) => (e.key === 'Enter' ? navigate('/musics', { state: text }) : '')}
+          />
         </div>
         <div className="nav">
           {currentUser?.teacher ? (
