@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import EditIcon from '@mui/icons-material/Edit';
 import Components from '../../components';
 import hooks from '../../hooks';
 import MusicWrapper from './MusicStyle';
@@ -16,9 +17,11 @@ export default function Music() {
     addChords, updateField, video, resetToUpdateLyric, setUpdateField, setVideo, setAddChords,
   } = hooks.useMusicPage(musicData);
   const {
-    addMusicSnippet, snippet, setSnippet, selectMusicSnippet, setAddMusicSnippet,
+    addMusicSnippet, updateMusicSnippet, snippet,
+    setSnippet, selectMusicSnippet, setAddMusicSnippet, setUpdateMusicSnippet,
   } = hooks.useSnippet(musicData);
   const { currentUser } = hooks.useUser();
+  const { contributors } = hooks.useMusicContributors(musicName!);
 
   return (
     <MusicWrapper.Container>
@@ -31,6 +34,7 @@ export default function Music() {
           compareTranslate={() => (
             musicData?.translatedLyric ? setShowTranslate(!showTranslate) : setShowTranslate(false)
           )}
+          contributors={contributors?.contributors}
         />
         <div className="lyric-area">
           <h1>{musicData?.name}</h1>
@@ -67,6 +71,7 @@ export default function Music() {
             addChords={addChords!}
             setAddChords={setAddChords}
             selectMusicSnippet={() => selectMusicSnippet()}
+            setUpdateMusicSnippet={setUpdateMusicSnippet}
           />
         </div>
         <div className="snippets-area">
@@ -104,17 +109,26 @@ export default function Music() {
                 <MusicWrapper.Snippet>
                   <Components.SnippetAid
                     musicData={musicData}
-                    addMusicSnippet={addMusicSnippet!}
-                    setAddMusicSnippet={setAddMusicSnippet}
+                    musicSnippet={addMusicSnippet!}
+                    setMusicSnippet={setAddMusicSnippet}
                   />
                 </MusicWrapper.Snippet>
               ) : ''
             ) : snippet ? (
               <MusicWrapper.Snippet>
-                <h1>
-                  {'Contribuidor que fez o auxílio: '}
-                  <span>{snippet.users.name}</span>
-                </h1>
+                <div className="contribute">
+                  <h1>
+                    {'Contribuidor que fez o auxílio: '}
+                    <span>{snippet.users.name}</span>
+                  </h1>
+                  <EditIcon
+                    cursor="pointer"
+                    onClick={() => {
+                      setSnippet(null);
+                      setUpdateMusicSnippet(snippet);
+                    }}
+                  />
+                </div>
                 <h1>Trecho da musica:</h1>
                 <p>{snippet.musicSnippet}</p>
                 {snippet.snippetAid.endsWith('.mp4') ? (
@@ -130,6 +144,15 @@ export default function Music() {
                     <span>{snippet.snippetAid}</span>
                   </h1>
                 )}
+              </MusicWrapper.Snippet>
+            ) : updateMusicSnippet ? (
+              <MusicWrapper.Snippet>
+                <Components.SnippetAid
+                  musicData={musicData}
+                  musicSnippet={updateMusicSnippet!}
+                  update
+                  setMusicSnippet={setUpdateMusicSnippet}
+                />
               </MusicWrapper.Snippet>
             ) : ''}
           </div>

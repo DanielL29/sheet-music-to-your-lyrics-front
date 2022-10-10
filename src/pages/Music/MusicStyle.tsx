@@ -156,6 +156,13 @@ const Snippet = styled.div`
   > div > div {
     margin-bottom: 10px;
   }
+
+  .contribute {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
 `;
 
 const MusicWrapper = {
