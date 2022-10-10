@@ -10,11 +10,13 @@ interface IAddChords {
   addChords: string
   setSnippet: (musicSnippet: IMusicSnippet | null) => void
   selectMusicSnippet: () => void
+  setUpdateMusicSnippet: any
   setAddChords: (e: any) => void
 }
 
 export default function Lyric({
-  musicData, musicSnippetData, snippet, addChords, setSnippet, selectMusicSnippet, setAddChords,
+  musicData, musicSnippetData, snippet, addChords,
+  setSnippet, selectMusicSnippet, setAddChords, setUpdateMusicSnippet,
 }: IAddChords) {
   const { updateLyricChords } = hooks.useMusicPage();
 
@@ -55,9 +57,14 @@ export default function Lyric({
               <p
                 key={i}
                 className="snippet"
-                onClick={() => (
-                  snippet?.musicSnippet === isMusicSnippet.musicSnippet
-                    ? setSnippet(null) : setSnippet(isMusicSnippet))}
+                onClick={() => {
+                  if (snippet?.musicSnippet === isMusicSnippet.musicSnippet) {
+                    setSnippet(null);
+                    setUpdateMusicSnippet(null);
+                  } else {
+                    setSnippet(isMusicSnippet);
+                  }
+                }}
               >
                 {phrase}
               </p>

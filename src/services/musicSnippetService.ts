@@ -35,9 +35,28 @@ async function insertMusicSnippet(
   });
 }
 
+async function update(musicSnippetId: number, snippetAid: any, token: string) {
+  const formData = new FormData();
+
+  if (typeof snippetAid !== 'string') {
+    formData.append('snippetAid', snippetAid);
+    formData.append('snippetAid', snippetAid.name);
+  } else {
+    formData.append('snippetAid', snippetAid);
+  }
+
+  await api.patch(`/musicSnippets/${musicSnippetId}/update`, formData, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'content-type': 'multipart/form-data',
+    },
+  });
+}
+
 const musicSnippetService = {
   getMusicSnippets,
   insertMusicSnippet,
+  update,
 };
 
 export default musicSnippetService;

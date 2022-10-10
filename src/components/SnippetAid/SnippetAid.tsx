@@ -1,29 +1,33 @@
 import { Button, TextField } from '@mui/material';
 import hooks from '../../hooks';
+import { IMusicSnippet } from '../../types/musicSnippetType';
 import { IMusic } from '../../types/musicType';
 
 interface ISnippetAid {
   musicData: IMusic | null
-  addMusicSnippet: string
-  setAddMusicSnippet: (value: string) => void
+  musicSnippet: any
+  update?: boolean
+  setMusicSnippet: any
 }
 
 export default function SnippetAid(
-  { musicData, addMusicSnippet, setAddMusicSnippet }: ISnippetAid,
+  {
+    musicData, musicSnippet, update, setMusicSnippet,
+  }: ISnippetAid,
 ) {
   const {
-    musicSnippetType, snippetAid, setSnippetAid, setMusicSnippetType, newSnippet,
+    musicSnippetType, snippetAid, setSnippetAid, setMusicSnippetType, newSnippet, updateSnippet,
   } = hooks.useSnippet(musicData);
 
   return (
     <>
-      <h1>Adicionando trecho de auxílio para:</h1>
-      <p>{addMusicSnippet}</p>
+      <h1>{update ? 'Atualizando trecho de auxílio para:' : 'Adicionando trecho de auxílio para:'}</h1>
+      <p>{update ? musicSnippet.musicSnippet : musicSnippet}</p>
       <div>
         <h1>
           {
             musicSnippetType === ''
-              ? 'inserir comentário ou video ?'
+              ? `${update ? 'atualizar como' : 'inserir'} comentário ou video ?`
               : musicSnippetType === 'comment'
                 ? 'Digite o comentário de auxílio: '
                 : 'Faça o upload do vídeo de até 2MB: '
@@ -51,7 +55,13 @@ export default function SnippetAid(
         </div>
         <form
           onSubmit={(e) => {
-            e.preventDefault(); newSnippet(addMusicSnippet); setAddMusicSnippet('');
+            e.preventDefault();
+            if (update) {
+              updateSnippet(musicSnippet.id, snippetAid);
+            } else {
+              newSnippet(musicSnippet);
+            }
+            setMusicSnippet('');
           }}
           encType="multipart/form-data"
         >
@@ -89,7 +99,7 @@ export default function SnippetAid(
                 width: '220px', color: '#d5d5d5', borderColor: '#d5d5d5', marginTop: '15px',
               }}
             >
-              Criar Trecho de Auxílio
+              {update ? 'Atualizar Trecho de Auxílio' : 'Criar Trecho de Auxílio'}
             </Button>
           ) : ''}
         </form>
