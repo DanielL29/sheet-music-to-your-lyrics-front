@@ -1,6 +1,7 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
 import hooks from './hooks';
 import Pages from './pages';
+import MakeContributor from './pages/MakeContributor/MakeContributor';
 
 export default function Router() {
   const { currentUser } = hooks.useUser();
@@ -17,7 +18,7 @@ export default function Router() {
       <Route path={isLogged ? '/musics' : '*'} element={isLogged ? <Pages.Musics /> : <Navigate to="/" replace />} />
       <Route path={isLogged ? '/authors' : '*'} element={isLogged ? <Pages.Authors /> : <Navigate to="/" replace />} />
       <Route path={isLogged && currentUser.teacher ? '/add-music' : '*'} element={isLogged && currentUser.teacher ? <Pages.AddMusic /> : <Navigate to="/home" replace />} />
-      <Route path="/become/contributor" element={<Pages.MakeContributor />} />
+      <Route path="/become/contributor" element={<MakeContributor />} />
     </Routes>
   );
 }
