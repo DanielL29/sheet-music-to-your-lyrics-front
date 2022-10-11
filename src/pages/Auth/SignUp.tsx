@@ -24,17 +24,11 @@ export default function SignUp() {
 
   async function submitUser(e: any) {
     e.preventDefault();
+    console.log(user);
 
     await createUser(user);
 
-    if (teacher) {
-      setSendEmail(`Email enviado para ${user.email}, valide ele para se tornar contribuidor`);
-      setUser({
-        name: '', email: '', password: '', confirmPassword: '', teacher,
-      });
-    } else {
-      navigate('/');
-    }
+    navigate('/');
   }
 
   return start ? (
