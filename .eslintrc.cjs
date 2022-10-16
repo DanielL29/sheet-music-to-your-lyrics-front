@@ -41,5 +41,7 @@ module.exports = {
     'jsx-a11y/no-static-element-interactions': 'off',
     'jsx-a11y/media-has-caption': 'off',
     'react/jsx-no-bind': 'off',
+    'no-alert': 'off',
+    'no-restricted-globals': 'off',
   },
 };
