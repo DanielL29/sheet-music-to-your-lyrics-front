@@ -53,10 +53,19 @@ async function update(musicSnippetId: number, snippetAid: any, token: string) {
   });
 }
 
+async function remove(musicSnippetId: number, token: string) {
+  await api.delete(`/musicSnippets/${musicSnippetId}/remove`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+}
+
 const musicSnippetService = {
   getMusicSnippets,
   insertMusicSnippet,
   update,
+  remove,
 };
 
 export default musicSnippetService;
