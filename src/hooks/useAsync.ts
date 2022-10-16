@@ -4,37 +4,41 @@ import useUser from './useUser';
 
 export default function useAsync<T>(handler: any, immediate: boolean = true) {
   const [data, setData] = useState<T | null>(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(immediate);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
   const { setCurrentUser } = useUser();
 
-  const act = (...args: any) => {
+  const act = async (...args: any) => {
     setLoading(true);
     setError(null);
-    return handler(...args).then((promiseData: any) => {
-      setData(promiseData);
-      setLoading(false);
-    }).catch((promiseError: any) => {
-      console.log(promiseError);
 
-      if (promiseError.response.data === 'jwt expired') {
+    try {
+      const dbData = await handler(...args);
+      setData(dbData);
+      setLoading(false);
+      return dbData;
+    } catch (err: any) {
+      console.log(err);
+
+      if (err.response.data === 'jwt expired') {
         localStorage.removeItem('userLocal');
         setCurrentUser(null);
         navigate('/');
       }
 
-      setError(promiseError.response.data);
+      setError(err.response.data);
       setLoading(false);
-    });
+      throw err;
+    }
   };
 
   useEffect(() => {
     if (immediate) {
       act();
     }
-  }, [data]);
+  }, []);
 
   return {
     data,
