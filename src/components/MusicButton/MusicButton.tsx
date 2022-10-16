@@ -64,7 +64,14 @@ export default function MusicButton({
         ) : header ? (
           <MenuItem onClick={() => { setUpdateField(name); handleClose(); }}>Sim</MenuItem>
         ) : ''}
-        <MenuItem onClick={() => { setButton(state); handleClose(); setUpdateField(''); }}>
+        <MenuItem onClick={() => {
+          setButton(state);
+          handleClose();
+          if (!header) {
+            setUpdateField('');
+          }
+        }}
+        >
           {header ? 'Cancelar' : `Exibir ${name}`}
         </MenuItem>
       </Menu>
