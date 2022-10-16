@@ -1,6 +1,6 @@
 import { Button, TextField } from '@mui/material';
+import { useParams } from 'react-router-dom';
 import hooks from '../../hooks';
-import { IMusicSnippet } from '../../types/musicSnippetType';
 import { IMusic } from '../../types/musicType';
 
 interface ISnippetAid {
@@ -8,16 +8,39 @@ interface ISnippetAid {
   musicSnippet: any
   update?: boolean
   setMusicSnippet: any
+  callMusic: any
 }
 
 export default function SnippetAid(
   {
-    musicData, musicSnippet, update, setMusicSnippet,
+    musicData, musicSnippet, update, setMusicSnippet, callMusic,
   }: ISnippetAid,
 ) {
   const {
-    musicSnippetType, snippetAid, setSnippetAid, setMusicSnippetType, newSnippet, updateSnippet,
+    musicSnippetType, snippetAid, setSnippetAid, setMusicSnippetType,
   } = hooks.useSnippet(musicData);
+
+  const { createMusicSnippet } = hooks.useMusicSnippetCreate();
+  const { updateMusicSnippet } = hooks.useMusicSnippetUpdate();
+
+  const { currentUser } = hooks.useUser();
+  const { musicName } = useParams();
+
+  async function newSnippet() {
+    await createMusicSnippet(
+      musicName,
+      { musicSnippet, snippetAid },
+      currentUser!.token,
+    );
+
+    callMusic();
+  }
+
+  async function updateSnippet() {
+    await updateMusicSnippet(musicSnippet.id, snippetAid, currentUser!.token);
+
+    callMusic();
+  }
 
   return (
     <>
@@ -57,9 +80,9 @@ export default function SnippetAid(
           onSubmit={(e) => {
             e.preventDefault();
             if (update) {
-              updateSnippet(musicSnippet.id, snippetAid);
+              updateSnippet();
             } else {
-              newSnippet(musicSnippet);
+              newSnippet();
             }
             setMusicSnippet('');
           }}

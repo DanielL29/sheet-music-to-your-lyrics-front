@@ -49,8 +49,8 @@ const Container = styled.div`
   .contributors {
     display: flex;
     align-items: center;
-    position: fixed;
-    margin-top: 200px;
+    margin-top: 10px;
+    margin-left: 3px;
   }
 `;
 

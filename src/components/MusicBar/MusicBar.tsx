@@ -9,12 +9,13 @@ interface IMusicBar {
   authorImg: string | undefined
   translatedLyric: string[] | undefined
   contributors: number | undefined
+  snippetsLength: number | undefined
   editMusic: () => void
   compareTranslate: () => void
 }
 
 export default function MusicBar({
-  authorImg, translatedLyric, contributors, editMusic, compareTranslate,
+  authorImg, translatedLyric, contributors, snippetsLength = 0, editMusic, compareTranslate,
 }: IMusicBar) {
   const { currentUser } = hooks.useUser();
 
@@ -22,7 +23,7 @@ export default function MusicBar({
     <MusicBarWrapper.Container>
       <img src={authorImg} alt="author" />
       <div className="translate">
-        {currentUser?.teacher ? (
+        {currentUser?.teacher && snippetsLength === 0 ? (
           <Tooltip title="Adicionar/Editar acordes da música" arrow>
             <div className="edit" onClick={editMusic}>
               <EditIcon cursor="pointer" />
@@ -34,10 +35,10 @@ export default function MusicBar({
             <img src={images.brazilImg} alt="translate" onClick={compareTranslate} />
           </Tooltip>
         ) : ''}
-      </div>
-      <div className="contributors">
-        <GroupIcon cursor="pointer" />
-        <span>{contributors}</span>
+        <div className="contributors">
+          <GroupIcon cursor="pointer" />
+          <span>{contributors}</span>
+        </div>
       </div>
     </MusicBarWrapper.Container>
   );
