@@ -72,7 +72,7 @@ export default function Header() {
                 name="Tornar-se contribuidor"
                 state={becomeContributor}
                 setButton={setBecomeContributor}
-                updateField={() => {
+                setUpdateField={() => {
                   setBecomeContributor('Email para se tornar contribuidor enviado! cheque seu email e confirme.');
                   sendEmail(currentUser!.token);
                 }}

@@ -9,6 +9,7 @@ import Lyric from './Lyric/Lyric';
 import SnippetAid from './SnippetAid/SnippetAid';
 import UpdateField from './UpdateField/UpdateField';
 import BreadCrumbs from './BreadCrumbs/BreadCrumbs';
+import ManageSnippet from './ManageSnippet/ManageSnippet';
 
 const Components = {
   AuthInput,
@@ -22,6 +23,7 @@ const Components = {
   SnippetAid,
   UpdateField,
   BreadCrumbs,
+  ManageSnippet,
 };
 
 export default Components;

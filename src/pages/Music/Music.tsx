@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import EditIcon from '@mui/icons-material/Edit';
 import Components from '../../components';
 import hooks from '../../hooks';
 import MusicWrapper from './MusicStyle';
@@ -9,19 +8,29 @@ export default function Music() {
   const { musicName, category, author } = useParams();
   const [showSheetMusic, setShowSheetMusic] = useState<string | undefined>('');
   const [showTranslate, setShowTranslate] = useState<boolean>(false);
+  const [showInfo, setShowInfo] = useState<boolean>(true);
   const navigate = useNavigate();
 
-  const { musicData } = hooks.useMusic(musicName!);
-  const { musicSnippetData } = hooks.useMusicSnippets(musicName!);
+  const { currentUser } = hooks.useUser();
+
+  const { musicData, getMusic } = hooks.useMusic(musicName!);
+  const { musicSnippetData, getMusicSnippets } = hooks.useMusicSnippets(musicName!);
+  const { contributors, getMusicContributor } = hooks.useMusicContributors(musicName!);
+
   const {
     addChords, updateField, video, resetToUpdateLyric, setUpdateField, setVideo, setAddChords,
   } = hooks.useMusicPage(musicData);
+
   const {
-    addMusicSnippet, updateMusicSnippet, snippet,
-    setSnippet, selectMusicSnippet, setAddMusicSnippet, setUpdateMusicSnippet,
+    addMusicSnippet, updateCurrentSnippet, snippet, setSnippet,
+    selectMusicSnippet, setAddMusicSnippet, setUpdateCurrentSnippet,
   } = hooks.useSnippet(musicData);
-  const { currentUser } = hooks.useUser();
-  const { contributors } = hooks.useMusicContributors(musicName!);
+
+  function callMusic() {
+    getMusic(musicName, currentUser!.token);
+    getMusicSnippets(musicName, currentUser!.token);
+    getMusicContributor(musicName, currentUser!.token);
+  }
 
   return (
     <MusicWrapper.Container>
@@ -30,7 +39,8 @@ export default function Music() {
         <Components.MusicBar
           authorImg={musicData?.authors.imageUrl}
           translatedLyric={musicData?.translatedLyric}
-          editMusic={() => resetToUpdateLyric()}
+          editMusic={() => { resetToUpdateLyric(); setAddMusicSnippet(''); }}
+          snippetsLength={musicSnippetData?.length}
           compareTranslate={() => (
             musicData?.translatedLyric ? setShowTranslate(!showTranslate) : setShowTranslate(false)
           )}
@@ -43,23 +53,23 @@ export default function Music() {
           </h2>
           <div className="buttons">
             <Components.MusicButton
-              name="vídeo"
+              name="Video"
               setButton={setVideo}
               state={musicData?.musicVideoUrl}
-              updateField={() => setUpdateField('Video')}
+              setUpdateField={setUpdateField}
             />
             <Components.MusicButton
-              name="vídeo aula"
+              name="Video aula"
               setButton={setVideo}
               state={musicData?.musicHelpVideoUrl}
-              updateField={() => setUpdateField('Video aula')}
+              setUpdateField={setUpdateField}
             />
             <Components.MusicButton
-              name="partitura"
+              name="Partitura"
               setButton={setShowSheetMusic}
               state={musicData?.sheetMusicFile}
               imgUrl={showSheetMusic}
-              updateField={() => setUpdateField('Partitura')}
+              setUpdateField={setUpdateField}
               showImg
             />
           </div>
@@ -71,7 +81,8 @@ export default function Music() {
             addChords={addChords!}
             setAddChords={setAddChords}
             selectMusicSnippet={() => selectMusicSnippet()}
-            setUpdateMusicSnippet={setUpdateMusicSnippet}
+            setUpdateCurrentSnippet={setUpdateCurrentSnippet}
+            callMusic={callMusic}
           />
         </div>
         <div className="snippets-area">
@@ -88,10 +99,10 @@ export default function Music() {
               <iframe
                 title="musicVideoUrl"
                 width="550"
-                height="315"
+                height={snippet ? '220' : '320'}
                 src={video}
                 frameBorder="0"
-                style={{ borderRadius: '5px' }}
+                style={{ borderRadius: '5px', transition: 'all 300ms ease-in-out' }}
                 allowFullScreen
               />
             ) : updateField !== '' ? (
@@ -101,6 +112,7 @@ export default function Music() {
                   updateField={updateField}
                   setUpdateField={setUpdateField}
                   setVideo={setVideo}
+                  callMusic={callMusic}
                 />
               </MusicWrapper.Snippet>
             ) : ''}
@@ -109,8 +121,9 @@ export default function Music() {
                 <MusicWrapper.Snippet>
                   <Components.SnippetAid
                     musicData={musicData}
-                    musicSnippet={addMusicSnippet!}
+                    musicSnippet={addMusicSnippet}
                     setMusicSnippet={setAddMusicSnippet}
+                    callMusic={callMusic}
                   />
                 </MusicWrapper.Snippet>
               ) : ''
@@ -121,12 +134,11 @@ export default function Music() {
                     {'Contribuidor que fez o auxílio: '}
                     <span>{snippet.users.name}</span>
                   </h1>
-                  <EditIcon
-                    cursor="pointer"
-                    onClick={() => {
-                      setSnippet(null);
-                      setUpdateMusicSnippet(snippet);
-                    }}
+                  <Components.ManageSnippet
+                    snippet={snippet}
+                    setSnippet={setSnippet}
+                    setUpdateCurrentSnippet={setUpdateCurrentSnippet}
+                    callMusic={callMusic}
                   />
                 </div>
                 <h1>Trecho da musica:</h1>
@@ -145,19 +157,28 @@ export default function Music() {
                   </h1>
                 )}
               </MusicWrapper.Snippet>
-            ) : updateMusicSnippet ? (
+            ) : updateCurrentSnippet ? (
               <MusicWrapper.Snippet>
                 <Components.SnippetAid
                   musicData={musicData}
-                  musicSnippet={updateMusicSnippet!}
+                  musicSnippet={updateCurrentSnippet}
                   update
-                  setMusicSnippet={setUpdateMusicSnippet}
+                  setMusicSnippet={setUpdateCurrentSnippet}
+                  callMusic={callMusic}
                 />
               </MusicWrapper.Snippet>
             ) : ''}
           </div>
         </div>
       </div>
+      {currentUser!.teacher ? (
+        <Components.SnackbarAlert
+          openAlert={showInfo}
+          error="Para inserir um auxílio a música selecione o texto dela!"
+          closeAlert={() => setShowInfo(false)}
+          success
+        />
+      ) : ''}
     </MusicWrapper.Container>
   );
 }

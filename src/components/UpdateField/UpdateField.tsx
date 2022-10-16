@@ -1,18 +1,41 @@
 import { Button, TextField } from '@mui/material';
+import { useParams } from 'react-router-dom';
 import hooks from '../../hooks';
 import { IMusic } from '../../types/musicType';
+import SnackbarAlert from '../SnackbarAlert/SnackbarAlert';
 
 interface IUpdateField {
   musicData: IMusic | null
   updateField: string
+  callMusic: any
   setUpdateField: (value: '' | 'Partitura' | 'Video' | 'Video aula') => void
   setVideo: (value: string) => void
 }
 
 export default function UpdateField({
-  musicData, updateField, setUpdateField, setVideo,
+  musicData, updateField, callMusic, setUpdateField, setVideo,
 }: IUpdateField) {
-  const { update, setUpdate, updateMusicField } = hooks.useMusicPage(musicData);
+  const { currentUser } = hooks.useUser();
+
+  const { update, setUpdate } = hooks.useMusicPage(musicData);
+  const { updateMusic, createMusicUpdateError, setMusicUpdateError } = hooks.useMusicUpdate();
+
+  const { musicName } = useParams();
+
+  async function updateMusicField() {
+    await updateMusic(
+      musicName,
+      updateField === 'Video'
+        ? { musicVideoUrl: update }
+        : updateField === 'Video aula'
+          ? { musicHelpVideoUrl: update }
+          : updateField === 'Partitura'
+            ? { sheetMusicFile: update } : '',
+      currentUser?.token,
+    );
+
+    callMusic();
+  }
 
   return (
     <>
@@ -20,7 +43,7 @@ export default function UpdateField({
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          updateMusicField(update, updateField);
+          updateMusicField();
           setUpdateField('');
           setVideo('');
         }}
@@ -28,7 +51,7 @@ export default function UpdateField({
       >
         <TextField
           id={updateField}
-          type={updateField === 'Partitura' ? 'file' : 'text'}
+          type={updateField === 'Partitura' ? 'file' : 'url'}
           label={updateField === 'Video' ? 'Video' : updateField === 'Video aula' ? 'Video aula' : 'Partitura'}
           variant="standard"
           style={{ color: '#15c7cf' }}
@@ -46,6 +69,11 @@ export default function UpdateField({
           {`Atualizar ${updateField}`}
         </Button>
       </form>
+      {/* <SnackbarAlert
+        openAlert={!!createMusicUpdateError}
+        error={createMusicUpdateError}
+        closeAlert={() => setMusicUpdateError(null)}
+      /> */}
     </>
   );
 }

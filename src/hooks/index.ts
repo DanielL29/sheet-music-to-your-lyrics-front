@@ -16,13 +16,14 @@ import useAuthorCategory from './api/authors/useAuthorCategory';
 import useMusicAuthor from './api/musics/useMusicAuthor';
 import useMusics from './api/musics/useMusics';
 import useAuthors from './api/authors/useAuthors';
-import useCreateMusic from './api/musics/useCreateMusic';
+import useMusicCreate from './api/musics/useMusicCreate';
 import useContributor from './api/users/useContributor';
 import useRoute from './useRoute';
 import useSendEmail from './api/users/useSendEmail';
 import useSearch from './api/musics/useSearch';
 import useMusicSnippetUpdate from './api/musicSnippets/useMusicSnippetUpdate';
 import useMusicContributors from './api/musicContributors/useMusicContributors';
+import useMusicSnippetRemove from './api/musicSnippets/useMusicSnippetRemove';
 
 const hooks = {
   useAsync,
@@ -43,13 +44,14 @@ const hooks = {
   useMusicAuthor,
   useMusics,
   useAuthors,
-  useCreateMusic,
+  useMusicCreate,
   useContributor,
   useRoute,
   useSendEmail,
   useSearch,
   useMusicSnippetUpdate,
   useMusicContributors,
+  useMusicSnippetRemove,
 };
 
 export default hooks;

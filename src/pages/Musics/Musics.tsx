@@ -1,4 +1,5 @@
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 import Components from '../../components';
 import hooks from '../../hooks';
 import MusicsWrapper from './MusicsStyle';
@@ -6,8 +7,15 @@ import MusicsWrapper from './MusicsStyle';
 export default function Musics() {
   const { state: text } = useLocation();
   const navigate = useNavigate();
+
+  const { currentUser } = hooks.useUser();
+
   const { musics } = hooks.useMusics();
-  const { search } = hooks.useSearch(text);
+  const { search, getSearch } = hooks.useSearch(text);
+
+  useEffect(() => {
+    getSearch(text, currentUser!.token);
+  }, [text]);
 
   return (
     <MusicsWrapper.Container>

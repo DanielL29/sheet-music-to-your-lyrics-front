@@ -2,7 +2,7 @@ import musicService from '../../../services/musicService';
 import { IMusics } from '../../../types/musicType';
 import useAsync from '../../useAsync';
 
-export default function useCreateMusic() {
+export default function useMusicCreate() {
   const {
     data, error, loading, setError, act,
   } = useAsync<IMusics>(musicService.insert, false);
@@ -11,7 +11,7 @@ export default function useCreateMusic() {
     insertedMusic: data,
     createMusicInsertError: error,
     createMusicInsertLoading: loading,
-    setCreateMusic: setError,
+    setCreateMusicError: setError,
     createMusic: act,
   };
 }

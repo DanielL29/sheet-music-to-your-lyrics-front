@@ -12,11 +12,11 @@ interface IMusicButton {
   imgUrl?: string | undefined
   showImg?: boolean
   header?: boolean
-  updateField: () => void
+  setUpdateField: any
 }
 
 export default function MusicButton({
-  name, setButton, state, showImg, imgUrl, header, updateField,
+  name, setButton, state, showImg, imgUrl, header, setUpdateField,
 }: IMusicButton) {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -60,11 +60,18 @@ export default function MusicButton({
         }}
       >
         {currentUser?.teacher ? (
-          <MenuItem onClick={() => { updateField(); handleClose(); }}>{`Mudar ${name}`}</MenuItem>
+          <MenuItem onClick={() => { setUpdateField(name); handleClose(); }}>{`Mudar ${name}`}</MenuItem>
         ) : header ? (
-          <MenuItem onClick={() => { updateField(); handleClose(); }}>Sim</MenuItem>
+          <MenuItem onClick={() => { setUpdateField(name); handleClose(); }}>Sim</MenuItem>
         ) : ''}
-        <MenuItem onClick={() => { setButton(state); handleClose(); }}>
+        <MenuItem onClick={() => {
+          setButton(state);
+          handleClose();
+          if (!header) {
+            setUpdateField('');
+          }
+        }}
+        >
           {header ? 'Cancelar' : `Exibir ${name}`}
         </MenuItem>
       </Menu>

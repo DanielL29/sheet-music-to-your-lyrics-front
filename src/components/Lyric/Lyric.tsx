@@ -1,4 +1,5 @@
 import { Button, TextField } from '@mui/material';
+import { useParams } from 'react-router-dom';
 import hooks from '../../hooks';
 import { IMusicSnippet } from '../../types/musicSnippetType';
 import { IMusic } from '../../types/musicType';
@@ -8,17 +9,27 @@ interface IAddChords {
   musicSnippetData: IMusicSnippet[] | null
   snippet: IMusicSnippet | null
   addChords: string
+  setUpdateCurrentSnippet: any
   setSnippet: (musicSnippet: IMusicSnippet | null) => void
   selectMusicSnippet: () => void
-  setUpdateMusicSnippet: any
   setAddChords: (e: any) => void
+  callMusic: any
 }
 
 export default function Lyric({
-  musicData, musicSnippetData, snippet, addChords,
-  setSnippet, selectMusicSnippet, setAddChords, setUpdateMusicSnippet,
+  musicData, musicSnippetData, snippet, addChords, callMusic,
+  setSnippet, selectMusicSnippet, setAddChords, setUpdateCurrentSnippet,
 }: IAddChords) {
-  const { updateLyricChords } = hooks.useMusicPage();
+  const { currentUser } = hooks.useUser();
+  const { updateMusic } = hooks.useMusicUpdate();
+
+  const { musicName } = useParams();
+
+  async function updateMusicLyric() {
+    await updateMusic(musicName, { lyric: addChords }, currentUser!.token);
+
+    callMusic();
+  }
 
   return addChords !== '' ? (
     <>
@@ -35,7 +46,7 @@ export default function Lyric({
       />
       <Button
         variant="outlined"
-        onClick={() => { updateLyricChords(addChords); setAddChords(''); }}
+        onClick={() => { updateMusicLyric(); setAddChords(''); }}
         style={{
           width: '180px', color: '#15c7cf', borderColor: '#15c7cf', marginTop: '20px',
         }}
@@ -60,7 +71,7 @@ export default function Lyric({
                 onClick={() => {
                   if (snippet?.musicSnippet === isMusicSnippet.musicSnippet) {
                     setSnippet(null);
-                    setUpdateMusicSnippet(null);
+                    setUpdateCurrentSnippet(null);
                   } else {
                     setSnippet(isMusicSnippet);
                   }

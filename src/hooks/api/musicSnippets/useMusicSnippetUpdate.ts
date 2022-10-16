@@ -10,6 +10,6 @@ export default function useMusicSnippetUpdate() {
     createMusicSnippetUpdateError: error,
     createMusicSnippetUpdateLoading: loading,
     setMusicSnippetUpdateError: setError,
-    updateCurrentSnippet: act,
+    updateMusicSnippet: act,
   };
 }
