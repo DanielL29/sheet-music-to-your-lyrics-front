@@ -20,7 +20,6 @@ export default function SignUp() {
   const [user, setUser] = useState({
     name: '', email: '', password: '', confirmPassword: '', teacher,
   });
-  const [sendEmail, setSendEmail] = useState('');
 
   async function submitUser(e: any) {
     e.preventDefault();
@@ -39,12 +38,6 @@ export default function SignUp() {
         error={createUserError}
         openAlert={!!createUserError}
         closeAlert={() => setCreateUserError(null)}
-      />
-      <Components.SnackbarAlert
-        error={sendEmail}
-        openAlert={sendEmail !== ''}
-        closeAlert={() => setSendEmail('')}
-        success
       />
       <AuthWrapper.Container>
         <img src={!teacher ? images.studentImg : images.teacherImg} alt="student-colaborator" />
