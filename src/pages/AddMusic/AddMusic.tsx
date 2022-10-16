@@ -17,11 +17,13 @@ export default function AddMusic() {
     sheetMusicFile: '',
     categoryId: '',
   });
-  const { categories } = hooks.useCategories();
-  const { insertedMusic, createMusic } = hooks.useCreateMusic();
-  const { currentUser } = hooks.useUser();
-
   const navigate = useNavigate();
+
+  const { currentUser } = hooks.useUser();
+  const { categories } = hooks.useCategories();
+  const {
+    insertedMusic, createMusic, createMusicInsertError, setCreateMusicError,
+  } = hooks.useMusicCreate();
 
   useEffect(() => {
     if (insertedMusic) {
@@ -104,6 +106,11 @@ export default function AddMusic() {
         </FormControl>
         <Button type="submit" variant="outlined" style={{ color: '#15c7cf', borderColor: '#15c7cf' }}>Inserir Música</Button>
       </form>
+      <Components.SnackbarAlert
+        openAlert={!!createMusicInsertError}
+        error={createMusicInsertError}
+        closeAlert={() => setCreateMusicError(null)}
+      />
     </AddMusicWrapper.Container>
   );
 }
