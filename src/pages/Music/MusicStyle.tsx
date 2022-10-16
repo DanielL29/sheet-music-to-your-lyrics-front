@@ -63,6 +63,7 @@ const Container = styled.div`
     border-radius: 3px;
     padding-left: 10px;
     margin-top: 20px;
+    user-select: none;
   }
 
   .snippets-area > div {
